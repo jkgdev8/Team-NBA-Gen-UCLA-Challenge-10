@@ -37,14 +37,14 @@ function addMember() {
     .then(function({name, role, id, email}) {
         let roleInfo = "";
         if (role === "Coach") {
-            roleInfo = "GitHub username";
+            roleInfo = "Years Left On Contract";
         } else if (role === "Players") {
             roleInfo = "school name";
         } else {
-            roleInfo = "office phone number";
+            roleInfo = "Years Left On Contract";
         }
         inquirer.prompt([{
-            message: `Enter team member's ${roleInfo}`,
+            message: `Enter  ${roleInfo}`,
             name: "roleInfo"
         },
         {
@@ -113,14 +113,14 @@ function addHtml(member) {
         const email = member.getEmail();
         let data = "";
         if (role === "Coach") {
-            const gitHub = member.getGithub();
+            const contract = member.getContract();
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />Coach</h5>
+            <h5 class="card-header" style="background-image: linear-gradient(to bottom right, rgb(212, 0, 255), yellow);">${name}<br /><br />Coach</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">GitHub: ${gitHub}</li>
+                <li class="list-group-item">Years Left On Contract: ${contract}</li>
             </ul>
             </div>
         </div>`;
@@ -128,7 +128,7 @@ function addHtml(member) {
             const school = member.getSchool();
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />Players</h5>
+            <h5 class="card-header" style="background-image: linear-gradient(to bottom right, rgb(212, 0, 255), yellow);">${name}<br /><br />Players</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
@@ -140,7 +140,7 @@ function addHtml(member) {
             const officePhone = member.getyearsleft();
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />GM</h5>
+            <h5 class="card-header" style="background-image: linear-gradient(to bottom right, rgb(212, 0, 255), yellow);">${name}<br /><br />GM</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
@@ -180,10 +180,4 @@ function finishHtml() {
     console.log("end");
 }
 
-// addMember();
-// startHtml();
-// addHtml("hi")
-// .then(function() {
-// finishHtml();
-// });
 initApp();
