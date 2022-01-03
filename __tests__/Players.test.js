@@ -1,9 +1,9 @@
 const Players = require("../lib/Players");
 
-test("Can set school via constructor", () => {
+test("Can set position via constructor", () => {
   const testValue = "UCLA";
   const e = new Players("Foo", 1, "test@test.com", testValue);
-  expect(e.school).toBe(testValue);
+  expect(e.position).toBe(testValue);
 });
 
 test("getRole() should return \"Players\"", () => {
@@ -12,8 +12,8 @@ test("getRole() should return \"Players\"", () => {
   expect(e.getRole()).toBe(testValue);
 });
 
-test("Can get school via getSchool()", () => {
+test("Can get position via getposition()", () => {
   const testValue = "UCLA";
   const e = new Players("Foo", 1, "test@test.com", testValue);
-  expect(e.getSchool()).toBe(testValue);
+  expect(e.getPosition()).toBe(testValue);
 });

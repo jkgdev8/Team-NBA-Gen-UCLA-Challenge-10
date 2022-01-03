@@ -13,40 +13,49 @@ function initApp() {
 
 function addMember() {
     inquirer.prompt([{
-        message: "Enter member's name",
+        message: "Enter member's name:",
         name: "name"
     },
     {
         type: "list",
-        message: "Select team member's role",
+        message: "Select team member's role:",
         choices: [
             "GM",
             "Coach",
-            "Player"
+            "Players"
         ],
         name: "role"
     },
     {
-        message: "Enter member's id / jersey",
+        message: "Enter member's id / jersey:",
         name: "id"
     },
     {
-        message: "Enter member's email address",
+        message: "Enter member's email address:",
         name: "email"
-    }])
-    .then(function({name, role, id, email}) {
+    },
+    
+  
+    ])
+    .then(function({name, role, id, email }) {
         let roleInfo = "";
-        if (role === "Coach") {
-            roleInfo = "Years Left On Contract";
+       
+        if (role === "Players") {
+            roleInfo = "Position Played:";
         } else if (role === "Players") {
-            roleInfo = "school name";
-        } else {
+            roleInfo = "Years Left On Contract:";
+        } 
+
+         else  {
             roleInfo = "Years Left On Contract";
         }
+
+         
         inquirer.prompt([{
             message: `Enter  ${roleInfo}`,
             name: "roleInfo"
         },
+
         {
             type: "list",
             message: "Would you like to add more team members?",
@@ -111,36 +120,53 @@ function addHtml(member) {
         const role = member.getRole();
         const id = member.getId();
         const email = member.getEmail();
+        
+       
+        
         let data = "";
         if (role === "Coach") {
             const contract = member.getContract();
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header" style="background-image: linear-gradient(to bottom right, rgb(212, 0, 255), yellow);">${name}<br /><br />Coach</h5>
+            <h5 class="card-header" >${name}<br /><br />Coach</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
                 <li class="list-group-item">Years Left On Contract: ${contract}</li>
+                
             </ul>
             </div>
         </div>`;
         } else if (role === "Players") {
-            const school = member.getSchool();
+            const position = member.getPosition();
+            
+            
+            
+            
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header" style="background-image: linear-gradient(to bottom right, rgb(212, 0, 255), yellow);">${name}<br /><br />Players</h5>
+            <h5 class="card-header" >${name}<br /><br />Players</h5>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${id}</li>
+                <li class="list-group-item">Jersey #: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">School: ${school}</li>
+                <li class="list-group-item">Position Played: ${position}</li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
             </ul>
             </div>
         </div>`;
         } else {
-            const officePhone = member.getyearsleft();
+            const officePhone = member.getcontract();
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header" style="background-image: linear-gradient(to bottom right, rgb(212, 0, 255), yellow);">${name}<br /><br />GM</h5>
+            <h5 class="card-header">${name}<br /><br />GM</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
@@ -177,7 +203,7 @@ function finishHtml() {
             console.log(err);
         };
     });
-    console.log("end");
+    console.log("Congrats! You Created an NBA Team!");
 }
 
 initApp();
