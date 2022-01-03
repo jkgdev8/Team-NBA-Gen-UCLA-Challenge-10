@@ -20,25 +20,25 @@ function addMember() {
         type: "list",
         message: "Select team member's role",
         choices: [
-            "Engineer",
-            "Intern",
-            "Manager"
+            "GM",
+            "Coach",
+            "Player"
         ],
         name: "role"
     },
     {
-        message: "Enter team member's id",
-        name: "id"
+        message: "Enter member's number / jersey",
+        name: "number / jersey"
     },
     {
-        message: "Enter team member's email address",
+        message: "Enter member's email address",
         name: "email"
     }])
     .then(function({name, role, id, email}) {
         let roleInfo = "";
-        if (role === "Engineer") {
+        if (role === "Coach") {
             roleInfo = "GitHub username";
-        } else if (role === "Intern") {
+        } else if (role === "Players") {
             roleInfo = "school name";
         } else {
             roleInfo = "office phone number";
@@ -58,12 +58,12 @@ function addMember() {
         }])
         .then(function({roleInfo, moreMembers}) {
             let newMember;
-            if (role === "Engineer") {
-                newMember = new Engineer(name, id, email, roleInfo);
-            } else if (role === "Intern") {
-                newMember = new Intern(name, id, email, roleInfo);
+            if (role === "Coach") {
+                newMember = new Coach(name, id, email, roleInfo);
+            } else if (role === "Players") {
+                newMember = new Players(name, id, email, roleInfo);
             } else {
-                newMember = new Manager(name, id, email, roleInfo);
+                newMember = new GM(name, id, email, roleInfo);
             }
             employees.push(newMember);
             addHtml(newMember)
@@ -79,13 +79,7 @@ function addMember() {
     });
 }
 
-// function renderHtml(memberArray) {
-//     startHtml();
-//     for (const member of memberArray) {
-//         addHtml(member);
-//     }
-//     finishHtml();
-// }
+
 
 function startHtml() {
     const html = `<!DOCTYPE html>
@@ -118,11 +112,11 @@ function addHtml(member) {
         const id = member.getId();
         const email = member.getEmail();
         let data = "";
-        if (role === "Engineer") {
+        if (role === "Coach") {
             const gitHub = member.getGithub();
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />Engineer</h5>
+            <h5 class="card-header">${name}<br /><br />Coach</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
@@ -130,11 +124,11 @@ function addHtml(member) {
             </ul>
             </div>
         </div>`;
-        } else if (role === "Intern") {
+        } else if (role === "Players") {
             const school = member.getSchool();
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />Intern</h5>
+            <h5 class="card-header">${name}<br /><br />Players</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
@@ -146,7 +140,7 @@ function addHtml(member) {
             const officePhone = member.getOfficeNumber();
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />Manager</h5>
+            <h5 class="card-header">${name}<br /><br />GM</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
