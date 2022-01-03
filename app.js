@@ -27,8 +27,8 @@ function addMember() {
         name: "role"
     },
     {
-        message: "Enter member's number / jersey",
-        name: "number / jersey"
+        message: "Enter member's id / jersey",
+        name: "id"
     },
     {
         message: "Enter member's email address",
@@ -93,7 +93,7 @@ function startHtml() {
     </head>
     <body>
         <nav class="navbar navbar-dark bg-dark mb-5">
-            <span class="navbar-brand mb-0 h1 w-100 text-center">Team Profile</span>
+            <span class="navbar-brand mb-0 h1 w-100 text-center">Start Your NBA TEAM Simulation</span>
         </nav>
         <div class="container">
             <div class="row">`;
@@ -137,14 +137,14 @@ function addHtml(member) {
             </div>
         </div>`;
         } else {
-            const officePhone = member.getOfficeNumber();
+            const officePhone = member.getyearsleft();
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
             <h5 class="card-header">${name}<br /><br />GM</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">Office Phone: ${officePhone}</li>
+                <li class="list-group-item">Years Left On Contract: ${officePhone}</li>
             </ul>
             </div>
         </div>`
