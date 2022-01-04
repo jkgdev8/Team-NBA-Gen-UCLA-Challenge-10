@@ -1,8 +1,8 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const Coach = require("./lib/Coach");
-const Players = require("./lib/Players");
-const GM = require("./lib/GM");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const Manager = require("./lib/Manager");
 
 const employees = [];
 
@@ -20,14 +20,14 @@ function addMember() {
         type: "list",
         message: "Select team member's role:",
         choices: [
-            "GM",
-            "Coach",
-            "Players"
+            "Engineer",
+            "Intern",
+            "Manager"
         ],
         name: "role"
     },
     {
-        message: "Enter member's id / jersey:",
+        message: "Enter member's id",
         name: "id"
     },
     {
@@ -40,14 +40,14 @@ function addMember() {
     .then(function({name, role, id, email }) {
         let roleInfo = "";
        
-        if (role === "Players") {
-            roleInfo = "Position Played:";
-        } else if (role === "Players") {
-            roleInfo = "Years Left On Contract:";
+        if (role === "Engineer") {
+            roleInfo = "Github name:";
+        } else if (role === "Intern") {
+            roleInfo = "School:";
         } 
 
          else  {
-            roleInfo = "Years Left On Contract";
+            roleInfo = "office number";
         }
 
          
@@ -67,12 +67,12 @@ function addMember() {
         }])
         .then(function({roleInfo, moreMembers}) {
             let newMember;
-            if (role === "Coach") {
-                newMember = new Coach(name, id, email, roleInfo);
-            } else if (role === "Players") {
-                newMember = new Players(name, id, email, roleInfo);
+            if (role === "Engineer") {
+                newMember = new Engineer(name, id, email, roleInfo);
+            } else if (role === "Intern") {
+                newMember = new Intern(name, id, email, roleInfo);
             } else {
-                newMember = new GM(name, id, email, roleInfo);
+                newMember = new Manager(name, id, email, roleInfo);
             }
             employees.push(newMember);
             addHtml(newMember)
@@ -98,11 +98,11 @@ function startHtml() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <title>Create Your NBA TEAM!</title>
+        <title>Team Profile Gen</title>
     </head>
     <body>
         <nav class="navbar navbar-dark bg-dark mb-5">
-            <span class="navbar-brand mb-0 h1 w-100 text-center">Start Your NBA TEAM Simulation</span>
+            <span class="navbar-brand mb-0 h1 w-100 text-center">Team Profile Gen</span>
         </nav>
         <div class="container">
             <div class="row">`;
@@ -121,56 +121,47 @@ function addHtml(member) {
         const id = member.getId();
         const email = member.getEmail();
         
+        
        
         
         let data = "";
-        if (role === "Coach") {
-            const contract = member.getContract();
+        if (role === "Engineer") {
+            const github = member.getGithub();
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header" >${name}<br /><br />Coach</h5>
+            <h5 class="card-header" >${name}<br /><br />Engineer</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">Years Left On Contract: ${contract}</li>
+                <li class="list-group-item">Github: ${github}</li>
                 
             </ul>
             </div>
         </div>`;
-        } else if (role === "Players") {
-            const position = member.getPosition();
-            
-            
-            
-            
+        } else if (role === "Intern") {
+            const school = member.getSchool();
+        
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header" >${name}<br /><br />Players</h5>
+            <h5 class="card-header" >${name}<br /><br />Intern</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Jersey #: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">Position Played: ${position}</li>
-                
-                
-                
-                
-                
-                
-                
-                
+                <li class="list-group-item">School: ${school}</li>
+             
                 
             </ul>
             </div>
         </div>`;
         } else {
-            const officePhone = member.getcontract();
+            const officePhone = member.getOfficeNumber();
             data = `<div class="col-6">
             <div class="card mx-auto mb-3" style="width: 18rem">
-            <h5 class="card-header">${name}<br /><br />GM</h5>
+            <h5 class="card-header">${name}<br /><br />Manger</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
-                <li class="list-group-item">Years Left On Contract: ${officePhone}</li>
+                <li class="list-group-item">Office Phone: ${officePhone}</li>
             </ul>
             </div>
         </div>`
@@ -203,7 +194,7 @@ function finishHtml() {
             console.log(err);
         };
     });
-    console.log("Congrats! You Created an NBA Team!");
+    console.log("Team Created!");
 }
 
 initApp();
